@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            width: 80%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #result, #score {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #666;
+        }
+
+        #result {
+            font-weight: bold;
+        }
+
+        #score {
+            font-weight: bold;
+            color: #ff6347;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Guess the Number</h1>
+        <input type="number" id="guessnumber" placeholder="Enter a number (1-10)">
+        <button onclick="check()">Check</button>
+        <p id="result">Start guessing!</p>
+        <p id="score">Score: 10</p>
+    </div>
+
+    <script>
+        var guessnumber = document.getElementById("guessnumber");
+        var result = document.getElementById('result');
+        var randomNumber = Math.floor(Math.random() * 10) + 1;
+        var score = document.getElementById('score');
+        var totalescore = 10;
+
+        function check() {
+            var enterednumber = guessnumber.value;
+
+            if (enterednumber == '') {
+                result.textContent = 'Please enter a number!';
+                result.style.color = 'red';
+                return;
+            }
+
+            if (randomNumber == enterednumber) {
+                result.textContent = 'Congratulations, You guessed it right!';
+                result.style.color = 'green';
+                alert("Congrats! You guessed the right number.");
+            } else {
+                totalescore = totalescore - 1;
+                score.textContent = 'Score: ' + totalescore;
+                result.textContent = 'Wrong! Try again.';
+                result.style.color = 'red';
+
+                if (totalescore <= 0) {
+                    result.textContent = 'Game Over! You have no more attempts left.';
+                    result.style.color = 'red';
+                    guessnumber.disabled = true;
+                    alert('Game Over!');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
